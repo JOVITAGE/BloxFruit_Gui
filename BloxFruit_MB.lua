@@ -1455,7 +1455,6 @@ if string.lower(game:GetService("RbxAnalyticsService"):GetClientId()) == game:Ge
     end)
 end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/CFrame3310/CFrameHub/main/HelloWorld.lua"))()
 local win = library:AddWindow("CFrame Hub")
 local MainTab = win:AddTab("Main")
 local Player = win:AddTab("Player")
