@@ -1,3 +1,6 @@
+if game:IsLoaded then
+    print("Game is loaded")
+end
 local ScreenGui = Instance.new("ScreenGui")
 local Toggle = Instance.new("TextButton")
     
