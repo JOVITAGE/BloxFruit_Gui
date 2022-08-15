@@ -2061,16 +2061,6 @@ function CheckQuest()
     end
 end
 
-spawn(function()
-while wait() do
-    if _G.AutoEquip then
-    pcall(function()
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild(_G.SelectWeapon))
-    end)
-    end
-end
-end)
-
 function Tween(P1)
     local Dis = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     local Speed
@@ -2086,7 +2076,7 @@ function Tween(P1)
 
     game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
-    local tween = game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart,TweenInfo.new(Dis/Speed,Enum.EasingStyle.Quad),{CFrame = P1})
+    local tween = game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart,TweenInfo.new(Dis/Speed,Enum.EasingStyle.Linear),{CFrame = P1})
     tween:Play()
     tween.Completed:Connect(DoAfter)
 end
