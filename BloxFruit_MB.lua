@@ -1532,7 +1532,7 @@ Autostats:AddToggle("Auto Blox Fruit",false,function(t)
 end)
 
 spawn(function()
-    while wait() do
+    while task.wait() do
         pcall(function()
             if _G.AutoSuperhuman then
                 if game.Players.LocalPlayer.Backpack:FindFirstChild("Black Leg") then
@@ -1544,19 +1544,78 @@ spawn(function()
                 elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Breath") then
                     _G.SelectWeapon = "Dragon Breath"
                 end
-                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Combat") then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBlackLeg")
-                elseif game:GetService("Players").LocalPlayer.Character["Black Leg"].Level.Value >= 300 then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectro")
-                elseif game:GetService("Players").LocalPlayer.Character["Electro"].Level.Value >= 300 then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyFishmanKarate")
-                elseif game:GetService("Players").LocalPlayer.Character["Fishman Karate"].Level.Value >= 300 then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonBreath")
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                for x,y in pairs(Melee) do
+                    if v.Name == y then
+                        if v:FindFirstChild("Level") then
+                            if v.Name == Melee[1] then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBlackLeg")
+                            end
+                            if v.Name == Melee[2] then
+                                if v.Level.Value >= 300 then
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectro")
+                                end
+                            elseif v.Name == Melee[3] then
+                                if v.Level.Value >= 300 then
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyFishmanKarate")
+                                end
+                            elseif v.Name == Melee[4] then
+                                if v.Level.Value >= 300 then
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","DragonClaw","2")
+                                end
+                            elseif v.Name == Melee[5] then
+                                if v.Level.Value >= 300 then
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySuperhuman")
+                                end
+                            end
+                        end
+                    end
+                end
                 end
             end
         end)
     end
 end)
+
+
+function Bring()
+    if _G.BringMob then
+        for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+        for x,y in pairs(game.Workspace.Enemies:GetChildren()) do
+            if v.Name == y.Name then
+                v.HumanoidRootPart.CFrame = y.HumanoidRootPart.CFrame
+                y.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                v.HumanoidRootPart.Transparency = 0.5
+                y.HumanoidRootPart.Transparency = 0.5
+                v.Humanoid.WalkSpeed = 0
+                y.Humanoid.WalkSpeed = 0
+                v.Humanoid.JumpPower = 0
+                y.Humanoid.JumpPower = 0
+                if sethiddenproperty then
+                    sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
+                end
+            end
+        end
+        end
+    end
+end
+
+function Attack()
+    if _G.AutoAttack then
+        pcall(function()
+            game:GetService'VirtualUser':CaptureController()
+            game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+        end)
+    end
+end
+
+function EquipTool(Tool)
+    if _G.AutoEquip then
+        pcall(function()
+            game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild(Tool))
+        end)
+    end
+end
 
 function CheckQuest()
     local Id = game.PlaceId
@@ -2016,9 +2075,9 @@ function Tween(P1)
     local Dis = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     local Speed
     if Dis < 1000 then
-        Speed = 300
+        Speed = 290
     elseif Dis >= 100 then
-        Speed = 200
+        Speed = 190
     end
 
     function DoAfter()
@@ -2041,14 +2100,18 @@ spawn(function()
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                 end
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
-                    for i,v in pairs(game.Workspace.Enemies:GetChildren()) do   
+                    for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
                         if v.Name == Mon then
                             if v:FindFirstChild("HumanoidRootPart") then
+                                Attack()
+                                EquipTool(_G.SelectWeapon)
                                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -  v.HumanoidRootPart.Position).Magnitude <= 500 then
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(20,0,0)
+                                    Bring()
                                 else 
                                     Tween(v.HumanoidRootPart.CFrame)
                                 end
+
                             end
                         end
                     end
@@ -2092,47 +2155,6 @@ while wait() do
     end
     task.wait()
 end
-end)
-
-spawn(function()
-while wait() do
-    pcall(function()
-    if _G.BringMob then
-        for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-        for x,y in pairs(game.Workspace.Enemies:GetChildren()) do
-            if v.Name == y.Name then
-                v.HumanoidRootPart.CFrame = y.HumanoidRootPart.CFrame
-                y.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-                y.HumanoidRootPart.Size = Vector3.new(60,60,60)
-                v.HumanoidRootPart.Transparency = 1
-                y.HumanoidRootPart.Transparency = 1
-                v.HumanoidRootPart.CanCollide = false
-                y.HumanoidRootPart.CanCollide = false
-                v.Humanoid.WalkSpeed = 0
-                y.Humanoid.WalkSpeed = 0
-                v.Humanoid.JumpPower = 0
-                y.Humanoid.JumpPower = 0
-                if sethiddenproperty then
-                    sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
-                end
-            end
-        end
-        end
-    end
-    end)
-end
-end)
-
-spawn(function() -- Auto Attack
-game:GetService("RunService").RenderStepped:Connect(function()
-    if _G.AutoAttack then
-    pcall(function()
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
-    end)
-    end
-end) 
 end)
 
 spawn(function()
