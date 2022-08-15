@@ -2009,7 +2009,7 @@ spawn(function()
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
                     for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
                     for x,y in pairs(game.ReplicatedStorage:GetChildren()) do
-                        if v.Name == Mon and v.Name == Mon then
+                        if v.Name == Mon and y.Name == Mon then
                             if v:FindFirstChild("HumanoidRootPart") or y:FindFirstChild("HumanoidRootPart") then
                                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -  v.HumanoidRootPart.Position).Magnitude <= 500 then
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(20,0,0)
@@ -2018,6 +2018,7 @@ spawn(function()
                                 end
                             end
                         end
+                    end
                     end
                 else
                     Tween(CFrame.new(0,10,0) * CFrameQuest)
