@@ -1,6 +1,6 @@
-if game:IsLoaded() then
-    print("Game is loaded")
-end
+repeat
+    wait()
+until game:IsLoaded()
 local ScreenGui = Instance.new("ScreenGui")
 local Toggle = Instance.new("TextButton")
     
