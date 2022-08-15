@@ -1,4 +1,4 @@
-if game:IsLoaded then
+if game:IsLoaded() then
     print("Game is loaded")
 end
 local ScreenGui = Instance.new("ScreenGui")
