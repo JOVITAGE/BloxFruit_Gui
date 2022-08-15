@@ -1470,6 +1470,10 @@ AutoFarm:AddToggle("Auto Farm",false,function(t)
     _G.AutoFarm = t
 end)
 
+AutoFarm:AddToggle("Auto Superhuman",false,function(t)
+    _G.AutoSuperhuman = t
+end)
+
 Weapon = {}
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
     table.insert(Weapon,v.Name)
@@ -1525,6 +1529,33 @@ Autostats:AddToggle("Auto Gun",false,function(t)
 end)
 Autostats:AddToggle("Auto Blox Fruit",false,function(t)
     _G.BF = t
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.AutoSuperhuman then
+                if game.Players.LocalPlayer.Backpack:FindFirstChild("Black Leg") then
+                    _G.SelectWeapon = "Black Leg"
+                elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Electro") then
+                    _G.SelectWeapon = "Electro"
+                elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Fishman Karate") then
+                    _G.SelectWeapon = "Fishman Karate"
+                elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Breath") then
+                    _G.SelectWeapon = "Dragon Breath"
+                end
+                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Combat") then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBlackLeg")
+                elseif game:GetService("Players").LocalPlayer.Character["Black Leg"].Level.Value >= 300 then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectro")
+                elseif game:GetService("Players").LocalPlayer.Character["Electro"].Level.Value >= 300 then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyFishmanKarate")
+                elseif game:GetService("Players").LocalPlayer.Character["Fishman Karate"].Level.Value >= 300 then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonBreath")
+                end
+            end
+        end)
+    end
 end)
 
 function CheckQuest()
