@@ -1,6 +1,8 @@
 repeat
     wait()
 until game:IsLoaded()
+print("Game is loaded")
+
 local ScreenGui = Instance.new("ScreenGui")
 local Toggle = Instance.new("TextButton")
     
