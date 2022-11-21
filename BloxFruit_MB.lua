@@ -1460,11 +1460,11 @@ if string.lower(game:GetService("RbxAnalyticsService"):GetClientId()) == game:Ge
     end)
 end
 
-local win = library:AddWindow("CFrame Hub")
+local win = library:AddWindow("PrivateHub"(Alpha)")
 local MainTab = win:AddTab("Main")
 local Player = win:AddTab("Player")
 local Dungeon = win:AddTab("DungeonDungeon")
-local ShopMain = win:AddTab("DungeonDungeon")
+local ShopMain = win:AddTab("Shop")
 
 local AutoFarm = MainTab:AddPage()
 local Settings = MainTab:AddPage()
@@ -1477,7 +1477,7 @@ local RaidProperty = Dungeon:AddPage()
 local Shop = ShopMain:AddPage()
 local Haki = ShopMain:AddPage()
 
-AutoFarm:AddToggle("Auto Farm",false,function(t)
+AutoFarm:AddToggle("Auto Farm Level",false,function(t)
     _G.AutoFarm = t
 end)
 
@@ -1496,9 +1496,9 @@ if game.PlaceId == 2753915549 then
 end
 
 Weapon = {}
-Fruit= {"Bomb-Bomb","Spike-Spike","Chop-Chop","Spring-Spring","Kilo-Kilo","Smoke-Smoke","Spin-Spin","Flame-Flame","Brid-Bird: Falcon","Ice-Ice","Sand-Sand","Dark-Dark","Revive-Revive","Diamond-Diamond","Light-Light","Love-Love","Rubber-Rubber","Barrier-Barrier","Magma-Magma","Door-Door","Quake-Quake","Human-Human: Buddha","String-String","Bird-Bird: Phoenix","Rumble-Rumble","Paw-Paw","Gravity-Gravity","Dough-Dough","Shadow-Shadow","Venom-Venom","Control-Control","Soul-Soul","Dragon-Dragon"}
-Melee = {"Combat","Black Leg","Electro","Fishman Karate","Dragon Claw","Superhuman","Death Step","Sharkman Karate","Dragon Talon"}
-Chip = {"Flame","Ice","Quake","Light","Dark","String","Rumble","Magma","Human: Buddha","Sand","Bird: Phoenix"}
+Fruit= {"Bomb-Bomb","Spike-Spike","Chop-Chop","Spring-Spring","Kilo-Kilo","Smoke-Smoke","Spin-Spin","Flame-Flame","Brid-Bird: Falcon","Ice-Ice","Sand-Sand","Dark-Dark","Revive-Revive","Diamond-Diamond","Light-Light","Love-Love","Rubber-Rubber","Barrier-Barrier","Magma-Magma","Door-Door","Quake-Quake","Human-Human: Buddha","String-String","Bird-Bird: Phoenix","Rumble-Rumble","Paw-Paw","Gravity-Gravity","Dough-Dough","Shadow-Shadow","Venom-Venom","Control-Control","Soul-Soul","Dragon-Dragon","Leapord-Leapord","}
+Melee = {"Combat","Black Leg","Electro","Fishman Karate","Dragon Claw","Superhuman","Death Step","Sharkman Karate","Dragon Talon","God Human"}
+Chip = {"Flame","Ice","Quake","Light","Dark","String","Rumble","Magma","Human: Buddha","Sand","Bird: Phoenix","Dough"}
 
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
     table.insert(Weapon,v.Name)
@@ -1510,8 +1510,8 @@ for x,y in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
     end
 end
 
-local SelectWeapon = Settings:AddDropdown("Select Weapon",Weapon,function(value)
-    _G.SelectWeapon = value
+local SelectWeapon = Settings:AddDropdown("Choose Weapon",Weapon,function(value)
+    _G.ChooseWeapon = value
 end)
 
 Settings:AddButton("Refresh Weapon",function()
@@ -1603,15 +1603,15 @@ spawn(function()
         pcall(function()
             if _G.AutoSuperhuman then
                 if game.Players.LocalPlayer.Backpack:FindFirstChild("Black Leg") then
-                    _G.SelectWeapon = "Black Leg"
+                    _G.ChooseWeapon = "Black Leg"
                 elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Electro") then
-                    _G.SelectWeapon = "Electro"
+                    _G.ChooseWeapon = "Electro"
                 elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Fishman Karate") then
-                    _G.SelectWeapon = "Fishman Karate"
+                    _G.ChooseWeapon = "Fishman Karate"
                 elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Breath") then
-                    _G.SelectWeapon = "Dragon Breath"
+                    _G.ChooseWeapon = "Dragon Breath"
                 elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Superhuman") then
-                    _G.SelectWeapon = "Superhuman"
+                    _G.ChooseWeapon = "Superhuman"
                 end
                 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                 for x,y in pairs(Melee) do
