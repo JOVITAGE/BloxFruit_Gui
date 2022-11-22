@@ -1,3 +1,4 @@
+if game.placeid == 2753915549 then
 repeat
     wait()
 until game:IsLoaded()
